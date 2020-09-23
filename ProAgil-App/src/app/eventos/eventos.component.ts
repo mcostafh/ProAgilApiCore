@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { EventoService } from '../_services/evento.service';
 import { Evento } from '../_models/Evento';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-eventos',
@@ -16,12 +17,15 @@ export class EventosComponent implements OnInit {
   mostrarImagem=false;
   eventosFiltrados : Evento[];
   modalRef : BsModalRef;
+  registerForm: FormGroup;
 
   _filtroLista: string;
   
   constructor( 
     private eventoService: EventoService
-    , private modalService: BsModalService) { }
+    , private modalService: BsModalService
+    , private fb: FormBuilder
+    ) { }
 
   public get filtroLista() : string {
     return this._filtroLista;
@@ -40,6 +44,7 @@ export class EventosComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.validation()
     this.getEventos();
   }
 
@@ -55,6 +60,27 @@ export class EventosComponent implements OnInit {
     this.mostrarImagem = !this.mostrarImagem; 
   }
 
+  salvarAlteracao(){
+
+  }
+
+  validation(){
+    this.registerForm = new FormGroup({
+      tema: new FormControl('',
+        [Validators.required , Validators.minLength(4), Validators.maxLength(50)]),
+      local: new FormControl('',Validators.required),
+      imagemURL: new FormControl('',Validators.required),
+      dataEvento: new FormControl('',Validators.required),
+      qtdPessoas: new FormControl('',
+        [Validators.required, Validators.max(120000) ]),
+      telefone: new FormControl('',Validators.required),
+      email: new FormControl('',
+        [  Validators.required, Validators.email])
+
+    })
+
+
+  }
 
   getEventos(){
     this.eventoService.getAllEventos().subscribe(
