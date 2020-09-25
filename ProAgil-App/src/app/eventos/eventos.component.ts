@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
+import { templateJitUrl } from '@angular/compiler';
 defineLocale('pt-br', ptBrLocale); 
 
 
@@ -17,6 +18,7 @@ defineLocale('pt-br', ptBrLocale);
 export class EventosComponent implements OnInit {
 
   eventos : Evento[];
+  evento : Evento;
   imagemLargura = 50;
   imagemMargem=2;
   mostrarImagem=false;
@@ -46,6 +48,7 @@ export class EventosComponent implements OnInit {
   
   
   openModal(template: any){
+    this.registerForm.reset();
     template.show();
 
   }
@@ -67,8 +70,20 @@ export class EventosComponent implements OnInit {
     this.mostrarImagem = !this.mostrarImagem; 
   }
 
-  salvarAlteracao(){
+  salvarAlteracao( template: any){
+    if ( this.registerForm.valid){
+      this.evento = Object.assign( {}, this.registerForm.value);
+      this.eventoService.postEvento( this.evento).subscribe(
+        (novoEvento: Evento) => {
+          console.log( novoEvento);
+          template.hide();
+          this.getEventos();
+        }, error =>{
+          console.log( error);
+        }
+      )
 
+    }
   }
 
   validation(){
