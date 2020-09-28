@@ -25,6 +25,7 @@ export class EventosComponent implements OnInit {
   eventosFiltrados : Evento[];
   registerForm: FormGroup;
   modoSalvar: any;
+  bodyDeletarEvento='';
 
   _filtroLista: string;
   
@@ -138,6 +139,24 @@ export class EventosComponent implements OnInit {
         error => {console.log(error);}
         );
         
+  }
+
+
+  excluirEvento(evento: Evento, template: any) {
+    this.openModal(template);
+    this.evento = evento;
+    this.bodyDeletarEvento = `Tem certeza que deseja excluir o Evento: ${evento.tema}, Código: ${evento.id}?`;
+  }
+
+  confirmeDelete(template: any) {
+    this.eventoService.deleteEvento(this.evento.id).subscribe(
+      () => {
+          template.hide();
+          this.getEventos();
+        }, error => {
+          console.log(error);
+        }
+    );
   }
 
 }

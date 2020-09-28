@@ -31,6 +31,10 @@ export class EventoService {
     return this.Http.put( this.baseURL+'/'+evento.id, evento);
   }  
 
+  deleteEvento(id:Number){
+    return this.Http.delete( this.baseURL+'/'+id);
+  }  
+
 
 }
 
