@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsLocaleService } from 'ngx-bootstrap/datepicker';
 import { defineLocale } from 'ngx-bootstrap/chronos';
 import { ptBrLocale } from 'ngx-bootstrap/locale';
+import { ToastrService } from 'ngx-toastr';
 
 defineLocale('pt-br', ptBrLocale); 
 
@@ -34,6 +35,7 @@ export class EventosComponent implements OnInit {
     , private modalService: BsModalService
     , private fb: FormBuilder
     , private LocaleService: BsLocaleService
+    , private toastr: ToastrService
     ) { 
       this.LocaleService.use('pt-br');
     }
@@ -96,8 +98,9 @@ export class EventosComponent implements OnInit {
             console.log( novoEvento);
             template.hide();
             this.getEventos();
+            this.toastr.success('Incluído com sucesso!', 'Evento!');
           }, error =>{
-            console.log( error);
+            this.toastr.error('Erro ao tentar insetir: ${error}')
           })
         
       }else{
@@ -106,8 +109,9 @@ export class EventosComponent implements OnInit {
             () => {
               template.hide();
               this.getEventos();
+              this.toastr.success('Gravado com sucesso!', 'Evento!');
             }, error =>{
-              console.log( error);
+              this.toastr.error('Erro ao tentar gravar: ${error}')
             })
 
       }
@@ -133,10 +137,9 @@ export class EventosComponent implements OnInit {
         ( _Eventos : Evento[] )=> {
           this.eventos = _Eventos;
           this.eventosFiltrados = this.eventos;
-          console.log(_Eventos);
         
         },
-        error => {console.log(error);}
+          error => {this.toastr.error('Erro ao tentar gravar: ${error}');}
         );
         
   }
@@ -153,8 +156,10 @@ export class EventosComponent implements OnInit {
       () => {
           template.hide();
           this.getEventos();
+          this.toastr.info('Deletado!', 'Evento!');
+
         }, error => {
-          console.log(error);
+          this.toastr.error('Erro ao tentar gravar: ${error}');
         }
     );
   }

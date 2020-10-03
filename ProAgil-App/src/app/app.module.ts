@@ -11,6 +11,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
+import { ToastrModule } from 'ngx-toastr';
+
 import { AppComponent } from './app.component';
 import { EventosComponent } from './eventos/eventos.component';
 import { NavComponent } from './nav/nav.component';
@@ -33,6 +35,11 @@ import { EventoService } from './_services/evento.service';
       BsDatepickerModule.forRoot(),
       TooltipModule.forRoot(),
       ModalModule.forRoot(),
+      ToastrModule.forRoot({
+         timeOut: 10000,
+         positionClass: 'toast-bottom-right',
+         preventDuplicates: true
+       }),
       FormsModule, 
       ReactiveFormsModule
    ],
