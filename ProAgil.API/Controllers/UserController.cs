@@ -31,7 +31,7 @@ namespace ProAgil.API.Controllers
         public UserController( IConfiguration config,
                              UserManager<User> userManager,
                              SignInManager<User> signInManager,
-                             ,IMapper mapper  )
+                             IMapper mapper  )
         {
             _config = config;
             _userManager = userManager;
@@ -39,12 +39,11 @@ namespace ProAgil.API.Controllers
             _mapper = mapper;
         }
 
-        public IMapper Mapper { get; }
-
+ 
         [HttpGet("GetUser")]
-        public async Task<IActionResult> GetUser(UserDto userDto)
+        public async Task<IActionResult> GetUser()
         {
-            return Ok(userDto)   ;
+            return Ok( new UserDto()) ;
         }
 
         [HttpPost("Register")]
