@@ -64,7 +64,7 @@ namespace ProAgil.API.Controllers
                 return this.StatusCode( StatusCodes.Status500InternalServerError, $"Banco de Dados Falhou {ex.Message}");
             }
             
-            return Ok(new User())   ;
+            return Ok(new User());
         }
        
         [HttpPost("Login")]

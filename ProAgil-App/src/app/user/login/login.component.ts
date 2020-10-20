@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 export class LoginComponent implements OnInit {
 
   titulo = "Login";
-  model: any = [];
+  model: any ={};
 
   constructor(
       private authService: AuthService
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         () =>{
           this.router.navigate( ['/dashboard']);
-          this.toastr.success('Bem vindo!');
+          this.toastr.success('Bem vindo '+this.authService.userName+'!');
         },
         error => {
           this.toastr.error('Falha ao logar!');

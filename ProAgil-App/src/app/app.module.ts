@@ -53,7 +53,7 @@ import { RegistrationComponent } from './user/registration/registration.componen
       ModalModule.forRoot(),
       ToastrModule.forRoot({
          timeOut: 10000,
-         positionClass: 'toast-bottom-right',
+         positionClass: 'toast-top-right',
          preventDuplicates: true
        }),
       FormsModule, 
