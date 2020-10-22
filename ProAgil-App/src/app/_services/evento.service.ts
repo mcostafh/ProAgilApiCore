@@ -12,33 +12,33 @@ export class EventoService {
   tokenHeader :HttpHeaders;
   
   constructor( private Http : HttpClient ){ 
-    this.tokenHeader = new HttpHeaders({'Authorization': `Bearer ${localStorage.getItem('token')}`});
+    
   }
 
   getAllEventos(): Observable<Evento[]>{
     
 
-    return this.Http.get<Evento[]>(this.baseURL, {headers: this.tokenHeader});
+    return this.Http.get<Evento[]>(this.baseURL );
   }
 
   getEventosByTema( Tema :string): Observable<Evento[]>{
-    return this.Http.get<Evento[]>('${this.baseURL}/getByTema/$[Tema}', {headers: this.tokenHeader});
+    return this.Http.get<Evento[]>('${this.baseURL}/getByTema/$[Tema}' );
   }
 
   getEventosById(Id:number): Observable<Evento>{
-    return this.Http.get<Evento>('${this.baseURL}/getById/$[Id}', {headers: this.tokenHeader});
+    return this.Http.get<Evento>('${this.baseURL}/getById/$[Id}');
   }
 
   postEvento(evento:Evento){
-    return this.Http.post( this.baseURL, evento,{headers: this.tokenHeader});
+    return this.Http.post( this.baseURL, evento);
   }  
 
   putEvento(evento:Evento){
-    return this.Http.put( this.baseURL+'/'+evento.id, evento, {headers: this.tokenHeader});
+    return this.Http.put( this.baseURL+'/'+evento.id, evento );
   }  
 
   deleteEvento(id:Number){
-    return this.Http.delete( this.baseURL+'/'+id, {headers: this.tokenHeader});
+    return this.Http.delete( this.baseURL+'/'+id );
   }  
 
 
